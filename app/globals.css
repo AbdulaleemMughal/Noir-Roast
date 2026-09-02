@@ -1,0 +1,275 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   Tokens
+   ========================================================================== */
+
+:root {
+  /* Backdrop stops. Written as rgb() triples because the scroll timeline
+     interpolates the channel numbers inside these strings directly. */
+  --core: rgb(38, 19, 10);
+  --mid: rgb(14, 8, 5);
+  --edge: rgb(4, 2, 1);
+  --bloom: 0.55;
+
+  --bean-size: 120px;
+
+  --cream: #f5ede0;
+  --crema: #e8d9c2;
+  --gold: #e2a857;
+
+  --rule: rgba(232, 217, 194, 0.14);
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Lenis drives scrolling; native smooth behaviour would fight it. */
+    scroll-behavior: auto;
+  }
+
+  body {
+    background-color: #050302;
+    color: var(--crema);
+    font-family: var(--font-sans), system-ui, sans-serif;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: rgba(226, 168, 87, 0.28);
+    color: var(--cream);
+  }
+
+  /* The custom cursor replaces the native one on pointer devices only. */
+  html.has-custom-cursor,
+  html.has-custom-cursor * {
+    cursor: none !important;
+  }
+
+  /* Keyboard focus must survive the cursor being hidden. */
+  :focus-visible {
+    outline: 1px solid var(--gold);
+    outline-offset: 4px;
+  }
+}
+
+/* ==========================================================================
+   Stage
+   ========================================================================== */
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      120% 90% at 50% 42%,
+      var(--core) 0%,
+      var(--mid) 42%,
+      var(--edge) 100%
+    );
+}
+
+/* A soft bloom sitting over the backdrop, brightest during the roast. */
+.backdrop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    52% 42% at 50% 46%,
+    rgba(255, 176, 92, 0.22) 0%,
+    rgba(255, 140, 60, 0.06) 45%,
+    transparent 72%
+  );
+  opacity: var(--bloom);
+}
+
+.bean-camera {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  perspective: 1400px;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.bean-layer {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+.bean-depth {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--bean-size) * var(--factor, 1));
+  height: calc(var(--bean-size) * var(--factor, 1));
+  /* Centred with margins, not a transform, so GSAP owns the transform slot. */
+  margin-left: calc(var(--bean-size) * var(--factor, 1) / -2);
+  margin-top: calc(var(--bean-size) * var(--factor, 1) / -2);
+  will-change: transform;
+}
+
+.bean-idle,
+.bean-body {
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+}
+
+.bean-body {
+  transform-style: preserve-3d;
+}
+
+.bean-body img {
+  /* Contact shadow lives on the image so the animated blur filter on
+     .bean-body never overwrites it. */
+  filter: drop-shadow(0 18px 26px rgba(0, 0, 0, 0.55));
+}
+
+/* ==========================================================================
+   Overlays
+   ========================================================================== */
+
+.grain {
+  position: fixed;
+  inset: -150px;
+  z-index: 40;
+  pointer-events: none;
+  background-image: url('/textures/grain.png');
+  background-repeat: repeat;
+  opacity: 0.42;
+  mix-blend-mode: overlay;
+  animation: grain-drift 720ms steps(1) infinite;
+}
+
+@keyframes grain-drift {
+  0%   { transform: translate(0, 0); }
+  20%  { transform: translate(-38px, 22px); }
+  40%  { transform: translate(26px, -34px); }
+  60%  { transform: translate(-18px, -20px); }
+  80%  { transform: translate(34px, 16px); }
+  100% { transform: translate(0, 0); }
+}
+
+.vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 38;
+  pointer-events: none;
+  background: radial-gradient(
+    112% 88% at 50% 50%,
+    transparent 42%,
+    rgba(3, 1, 1, 0.5) 78%,
+    rgba(2, 1, 0, 0.86) 100%
+  );
+}
+
+/* Scroll cue — a drop travelling down the hairline, on a loop. */
+.scroll-drop {
+  animation: scroll-drop 2.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+@keyframes scroll-drop {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(400%); }
+}
+
+/* ==========================================================================
+   Type
+   ========================================================================== */
+
+.display {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 300;
+  line-height: 0.86;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+}
+
+/* Display sizes are capped by viewport *height* as well as width. Scenes pin
+   their content to a full-height sticky frame, so type that only respects
+   width overflows the top and bottom of a short laptop screen. */
+.display-xl {
+  font-size: clamp(3.2rem, min(13vw, 17vh), 13.5rem);
+}
+
+.display-lg {
+  font-size: clamp(2.2rem, min(9.5vw, 11vh), 9rem);
+}
+
+.display-md {
+  font-size: clamp(1.8rem, min(6vw, 8vh), 5.2rem);
+}
+
+.eyebrow {
+  font-size: clamp(0.62rem, 0.78vw, 0.74rem);
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: rgba(232, 217, 194, 0.5);
+}
+
+.body-copy {
+  font-size: clamp(0.95rem, 1.05vw, 1.08rem);
+  line-height: 1.72;
+  color: rgba(232, 217, 194, 0.62);
+}
+
+/* Split wrappers created by lib/splitText. */
+.split-line,
+.split-word,
+.split-char {
+  will-change: transform, opacity, filter;
+}
+
+/* ==========================================================================
+   Layout
+   ========================================================================== */
+
+/* In @layer components so Tailwind utilities still win. Outside a layer these
+   would be emitted after the utilities and silently beat them — `items-start`
+   on a scene would lose to `align-items: center` here, leaving every sticky
+   frame centred in its tall section instead of pinned to the top of it. */
+@layer components {
+  .scene {
+    position: relative;
+    z-index: 30;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding-inline: clamp(1.25rem, 5vw, 5.5rem);
+  }
+
+  .rule {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(90deg, transparent, var(--rule), transparent);
+  }
+}
+
+/* ==========================================================================
+   Reduced motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .grain {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
