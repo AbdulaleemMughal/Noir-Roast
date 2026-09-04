@@ -25,6 +25,7 @@ export const scrollTo = (target: string | HTMLElement) => {
  * locked to the smoothed scroll position — with separate rAF loops the beans
  * visibly lag the page by a frame.
  */
+
 export default function SmoothScroll({
   children,
 }: {

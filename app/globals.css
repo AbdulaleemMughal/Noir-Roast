@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit:wght@100..900&family=Playwrite+IT+Trad:wght@100..400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
 
 /* ==========================================================================
    Tokens
@@ -69,18 +70,17 @@
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background:
-    radial-gradient(
-      120% 90% at 50% 42%,
-      var(--core) 0%,
-      var(--mid) 42%,
-      var(--edge) 100%
-    );
+  background: radial-gradient(
+    120% 90% at 50% 42%,
+    var(--core) 0%,
+    var(--mid) 42%,
+    var(--edge) 100%
+  );
 }
 
 /* A soft bloom sitting over the backdrop, brightest during the roast. */
 .backdrop::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   background: radial-gradient(
@@ -145,7 +145,7 @@
   inset: -150px;
   z-index: 40;
   pointer-events: none;
-  background-image: url('/textures/grain.png');
+  background-image: url("/textures/grain.png");
   background-repeat: repeat;
   opacity: 0.42;
   mix-blend-mode: overlay;
@@ -153,12 +153,24 @@
 }
 
 @keyframes grain-drift {
-  0%   { transform: translate(0, 0); }
-  20%  { transform: translate(-38px, 22px); }
-  40%  { transform: translate(26px, -34px); }
-  60%  { transform: translate(-18px, -20px); }
-  80%  { transform: translate(34px, 16px); }
-  100% { transform: translate(0, 0); }
+  0% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-38px, 22px);
+  }
+  40% {
+    transform: translate(26px, -34px);
+  }
+  60% {
+    transform: translate(-18px, -20px);
+  }
+  80% {
+    transform: translate(34px, 16px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
 }
 
 .vignette {
@@ -180,8 +192,12 @@
 }
 
 @keyframes scroll-drop {
-  0%   { transform: translateY(-100%); }
-  100% { transform: translateY(400%); }
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(400%);
+  }
 }
 
 /* ==========================================================================
@@ -272,4 +288,8 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+.shop-btn {
+  font-family: 'Inter';
 }

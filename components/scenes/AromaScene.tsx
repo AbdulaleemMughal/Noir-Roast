@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useRef } from 'react';
-import { gsap } from '@/lib/gsap';
-import { useIsomorphicLayoutEffect } from '@/lib/useIsomorphicLayoutEffect';
+import { useRef } from "react";
+import { gsap } from "@/lib/gsap";
+import { useIsomorphicLayoutEffect } from "@/lib/useIsomorphicLayoutEffect";
 
-const LINES = ['You can’t', 'See aroma.', 'But you can', 'Feel it.'];
+const LINES = ["You can’t", "See aroma.", "But you can", "Feel it."];
 
 /**
  * Scene 04 — Aroma.
@@ -19,43 +19,89 @@ export default function AromaScene() {
 
   useIsomorphicLayoutEffect(() => {
     const context = gsap.context(() => {
-      const lines = gsap.utils.toArray<HTMLElement>('[data-aroma-line]');
+      const lines = gsap.utils.toArray<HTMLElement>("[data-aroma-line]");
 
       const timeline = gsap.timeline({
         scrollTrigger: {
           trigger: ref.current,
-          start: 'top top',
-          end: 'bottom bottom',
+          start: "top top",
+          end: "bottom bottom",
           scrub: 1,
         },
       });
 
+      // lines.forEach((line, index) => {
+      //   // Rise in, hold, drift out — overlapping, so two lines are briefly
+      //   // visible together and the section never goes empty.
+      //   timeline
+      //     .fromTo(
+      //       line,
+      //       { opacity: 0, y: 70, filter: 'blur(18px)' },
+      //       { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1, ease: 'power2.out' },
+      //       index * 0.85,
+      //     )
+      //     .to(
+      //       line,
+      //       { opacity: 0, y: -70, filter: 'blur(18px)', duration: 1, ease: 'power2.in' },
+      //       index * 0.85 + 1.5,
+      //     );
+      // });
+
       lines.forEach((line, index) => {
-        // Rise in, hold, drift out — overlapping, so two lines are briefly
-        // visible together and the section never goes empty.
+        const start = index * 2;
+
         timeline
+          // Enter
           .fromTo(
             line,
-            { opacity: 0, y: 70, filter: 'blur(18px)' },
-            { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1, ease: 'power2.out' },
-            index * 0.85,
+            {
+              opacity: 0,
+              y: 60,
+              filter: "blur(14px)",
+            },
+            {
+              opacity: 1,
+              y: 0,
+              filter: "blur(0px)",
+              duration: 0.6,
+              ease: "power3.out",
+            },
+            start,
           )
+
+          // Hold
           .to(
             line,
-            { opacity: 0, y: -70, filter: 'blur(18px)', duration: 1, ease: 'power2.in' },
-            index * 0.85 + 1.5,
+            {
+              opacity: 1,
+              duration: 0.8,
+            },
+            start + 0.6,
+          )
+
+          // Exit
+          .to(
+            line,
+            {
+              opacity: 0,
+              y: -60,
+              filter: "blur(14px)",
+              duration: 0.6,
+              ease: "power3.in",
+            },
+            start + 1.4,
           );
       });
 
       // Light rays sweep slowly across the whole section.
-      gsap.to('[data-rays]', {
+      gsap.to("[data-rays]", {
         rotate: 9,
         xPercent: 6,
-        ease: 'none',
+        ease: "none",
         scrollTrigger: {
           trigger: ref.current,
-          start: 'top bottom',
-          end: 'bottom top',
+          start: "top bottom",
+          end: "bottom top",
           scrub: 1.6,
         },
       });
@@ -78,12 +124,12 @@ export default function AromaScene() {
         className="pointer-events-none absolute inset-0 z-[16] origin-top opacity-[0.32]"
         style={{
           background:
-            'repeating-linear-gradient(102deg, transparent 0px, transparent 62px, rgba(255,196,132,0.055) 62px, rgba(255,196,132,0.055) 96px)',
+            "repeating-linear-gradient(102deg, transparent 0px, transparent 62px, rgba(255,196,132,0.055) 62px, rgba(255,196,132,0.055) 96px)",
           maskImage:
-            'radial-gradient(58% 74% at 50% 18%, black 0%, transparent 78%)',
+            "radial-gradient(58% 74% at 50% 18%, black 0%, transparent 78%)",
           WebkitMaskImage:
-            'radial-gradient(58% 74% at 50% 18%, black 0%, transparent 78%)',
-          filter: 'blur(2px)',
+            "radial-gradient(58% 74% at 50% 18%, black 0%, transparent 78%)",
+          filter: "blur(2px)",
         }}
       />
 
@@ -101,9 +147,9 @@ export default function AromaScene() {
                 key={line}
                 data-aroma-line
                 className={[
-                  'display display-lg absolute inset-x-0 opacity-0',
-                  index % 2 === 0 ? 'text-cream' : 'text-gold',
-                ].join(' ')}
+                  "display display-lg absolute inset-x-0 opacity-0",
+                  index % 2 === 0 ? "text-cream" : "text-gold",
+                ].join(" ")}
               >
                 {line}
               </p>

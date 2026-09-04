@@ -59,7 +59,7 @@ export default function Hero() {
           awaitHero
           className="display display-xl text-cream"
         >
-          From Bean
+          From Beans
         </RevealText>
 
         <RevealText

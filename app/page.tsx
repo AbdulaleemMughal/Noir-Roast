@@ -26,6 +26,7 @@ import Footer from '@/components/scenes/Footer';
  * the `data-scene` sections is the order of the choreography, so moving one
  * moves the film with it.
  */
+
 export default function Page() {
   const [started, setStarted] = useState(false);
   const start = useCallback(() => setStarted(true), []);

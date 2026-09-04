@@ -141,7 +141,6 @@ export default function Preloader({ onComplete }: PreloaderProps) {
             />
           </div>
         </div>
-
         <p
           className="display text-cream tabular-nums"
           style={{ fontSize: 'clamp(3rem, 11vw, 9rem)', lineHeight: 0.8 }}

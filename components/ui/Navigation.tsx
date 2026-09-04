@@ -20,6 +20,7 @@ const LINKS = [
  * page starts moving. Deliberately quiet — it should never compete with the
  * type underneath it.
  */
+
 export default function Navigation() {
   const [condensed, setCondensed] = useState(false);
   const [open, setOpen] = useState(false);
@@ -72,7 +73,7 @@ export default function Navigation() {
           data-cursor="top"
           className="text-left"
         >
-          <span className="display block text-[0.95rem] leading-none tracking-[0.2em] text-cream">
+          <span className="display mb-0.5 block text-[0.95rem] leading-none tracking-[0.2em] text-cream">
             Noir
           </span>
           <span className="eyebrow block leading-none">Roast</span>
@@ -85,7 +86,7 @@ export default function Navigation() {
               type="button"
               onClick={() => go(link.target)}
               data-cursor="go"
-              className="group relative text-[0.68rem] uppercase tracking-[0.28em] text-crema/70 transition-colors duration-300 hover:text-cream"
+              className="group shop-btn relative text-[0.68rem] uppercase tracking-[0.28em] text-crema/70 transition-colors duration-300 hover:text-cream"
             >
               {link.label}
               {/* Underline wipes in from the left. */}
@@ -98,7 +99,7 @@ export default function Navigation() {
           <a
             href="#shop"
             data-cursor="shop"
-            className="hidden rounded-full border border-[rgba(232,217,194,0.22)] px-6 py-2.5 text-[0.62rem] uppercase tracking-[0.28em] text-crema transition-colors duration-500 hover:border-gold hover:text-gold sm:inline-block"
+            className="shop-btn hidden rounded-full border border-[rgba(232,217,194,0.22)] px-6 py-2.5 text-[0.62rem] uppercase tracking-[0.28em] text-crema transition-colors duration-500 hover:border-gold hover:text-gold sm:inline-block"
           >
             Shop now
           </a>

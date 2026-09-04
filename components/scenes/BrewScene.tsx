@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useRef } from 'react';
-import { gsap } from '@/lib/gsap';
-import { useIsomorphicLayoutEffect } from '@/lib/useIsomorphicLayoutEffect';
-import RevealText from '@/components/ui/RevealText';
-import CoffeeCup from './CoffeeCup';
+import { useRef } from "react";
+import { gsap } from "@/lib/gsap";
+import { useIsomorphicLayoutEffect } from "@/lib/useIsomorphicLayoutEffect";
+import RevealText from "@/components/ui/RevealText";
+import CoffeeCup from "./CoffeeCup";
 
-const CHAIN = ['Beans', 'Roast', 'Grind', 'Brew', 'Coffee'];
+const CHAIN = ["Beans", "Roast", "Grind", "Brew", "Coffee"];
 
 /**
  * Scene 05 — The Perfect Cup.
@@ -21,63 +21,115 @@ export default function BrewScene() {
 
   useIsomorphicLayoutEffect(() => {
     const context = gsap.context(() => {
+
+      // The cup arrives, then fills as the beans come apart above it.
       const timeline = gsap.timeline({
         scrollTrigger: {
           trigger: ref.current,
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: 1,
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 1.5,
         },
       });
 
-      // The cup arrives, then fills as the beans come apart above it.
-      timeline
-        .fromTo(
-          '[data-cup]',
-          { yPercent: 24, opacity: 0, scale: 0.94 },
-          { yPercent: 0, opacity: 1, scale: 1, duration: 1.2, ease: 'power2.out' },
-          0,
-        )
-        .fromTo(
-          '[data-liquid]',
-          { scale: 0, opacity: 0 },
-          { scale: 1, opacity: 1, duration: 1.4, ease: 'power2.inOut' },
-          1.1,
-        )
-        .fromTo(
-          '[data-swirl]',
-          { rotate: -22, transformOrigin: '210px 152px' },
-          { rotate: 16, duration: 2.2, ease: 'none' },
-          1.2,
-        )
-        .fromTo(
-          '[data-steam]',
-          { opacity: 0 },
-          { opacity: 0.85, duration: 1, ease: 'power1.out' },
-          2.2,
-        );
+      // Coffee cup slowly enters
+      timeline.fromTo(
+        "[data-cup]",
+        {
+          yPercent: 24,
+          opacity: 0,
+          scale: 0.94,
+        },
+        {
+          yPercent: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 3,
+          ease: "power2.out",
+        },
+        0,
+      );
 
-      // Each step of the chain lights as the scroll reaches it.
-      const steps = gsap.utils.toArray<HTMLElement>('[data-chain-step]');
+      // Coffee slowly fills the cup
+      timeline.fromTo(
+        "[data-liquid]",
+        {
+          scale: 0,
+          opacity: 0,
+          transformOrigin: "center center",
+        },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 3,
+          ease: "power2.inOut",
+        },
+        2.5,
+      );
+
+      // Slow coffee swirl
+      timeline.fromTo(
+        "[data-swirl]",
+        {
+          rotate: -22,
+          transformOrigin: "210px 152px",
+        },
+        {
+          rotate: 16,
+          duration: 4,
+          ease: "none",
+        },
+        3,
+      );
+
+      // Steam appears
+      timeline.fromTo(
+        "[data-steam]",
+        {
+          opacity: 0,
+        },
+        {
+          opacity: 0.85,
+          duration: 2,
+          ease: "power1.out",
+        },
+        6,
+      );
+
+      // Chain animation
+      const steps = gsap.utils.toArray<HTMLElement>("[data-chain-step]");
+
       steps.forEach((step, index) => {
+        const stepStart = 2 + index * 1.8;
+
         timeline.to(
           step,
-          { opacity: 1, color: '#f5ede0', duration: 0.4, ease: 'none' },
-          0.35 + index * 0.62,
+          {
+            opacity: 1,
+            color: "#f5ede0",
+            duration: 0.8,
+            ease: "none",
+          },
+          stepStart,
         );
+
         timeline.to(
-          step.querySelector('[data-chain-bar]'),
-          { scaleX: 1, duration: 0.5, ease: 'none' },
-          0.35 + index * 0.62,
+          step.querySelector("[data-chain-bar]"),
+          {
+            scaleX: 1,
+            duration: 1,
+            ease: "none",
+          },
+          stepStart,
         );
       });
 
       // Steam drifts continuously — it is the one thing here not tied to scroll.
-      gsap.to('[data-steam-path]', {
+      gsap.to("[data-steam-path]", {
         y: -10,
         opacity: 0.35,
         duration: 3.4,
-        ease: 'sine.inOut',
+        ease: "sine.inOut",
         repeat: -1,
         yoyo: true,
         stagger: 0.5,
@@ -126,11 +178,14 @@ export default function BrewScene() {
                 key={step}
                 data-chain-step
                 className="flex-1 text-center opacity-30"
-                style={{ color: 'rgba(232,217,194,0.55)' }}
+                style={{ color: "rgba(232,217,194,0.55)" }}
               >
-                <span className="block h-px w-full origin-left scale-x-0 bg-gold" data-chain-bar />
+                <span
+                  className="block h-px w-full origin-left scale-x-0 bg-gold"
+                  data-chain-bar
+                />
                 <span className="mt-3 block text-[0.6rem] uppercase tracking-[0.24em] sm:text-[0.68rem]">
-                  {String(index + 1).padStart(2, '0')}
+                  {String(index + 1).padStart(2, "0")}
                 </span>
                 <span className="display mt-1 block text-[clamp(0.8rem,1.6vw,1.35rem)] tracking-[-0.02em]">
                   {step}
