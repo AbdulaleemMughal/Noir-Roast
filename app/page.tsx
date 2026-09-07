@@ -46,7 +46,7 @@ export default function Page() {
         <AromaScene />
         <BrewScene />
         <ProductScene />
-        <FinalScene />
+        {/* <FinalScene /> */}
         <Footer />
       </main>
 

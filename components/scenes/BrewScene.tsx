@@ -6,8 +6,9 @@ import { useIsomorphicLayoutEffect } from "@/lib/useIsomorphicLayoutEffect";
 import RevealText from "@/components/ui/RevealText";
 import CoffeeCup from "./CoffeeCup";
 
-const CHAIN = ["Beans", "Roast", "Grind", "Brew", "Coffee"];
+// const CHAIN = ["Beans", "Roast", "Grind", "Brew", "Coffee"];
 
+const CHAIN = ["Idea", "Start", "Build", "Debug", "Deploy"];
 /**
  * Scene 05 — The Perfect Cup.
  *

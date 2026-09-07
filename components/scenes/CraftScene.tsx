@@ -1,13 +1,22 @@
-'use client';
+"use client";
 
-import { useRef } from 'react';
-import { gsap, ScrollTrigger } from '@/lib/gsap';
-import { useIsomorphicLayoutEffect } from '@/lib/useIsomorphicLayoutEffect';
+import { useRef } from "react";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { useIsomorphicLayoutEffect } from "@/lib/useIsomorphicLayoutEffect";
 
 const STEPS = [
-  { word: 'Selected.', note: 'Density-sorted, then twice by hand. Eleven percent never makes it.' },
-  { word: 'Roasted.', note: 'Twelve minutes. One crack. The curve is the recipe.' },
-  { word: 'Crafted.', note: 'Rested four days, ground to order, sealed the same hour.' },
+  {
+    word: "Code.",
+    note: "The first line starts the build. The first sip keeps the mind moving.",
+  },
+  {
+    word: "Debug.",
+    note: "Bugs happen. Coffee gets poured. Problems get solved one line at a time.",
+  },
+  {
+    word: "Ship.",
+    note: "Commit the work, deploy the build, and take the final sip. Nothing left undone.",
+  },
 ];
 
 /**
@@ -23,45 +32,45 @@ export default function CraftScene() {
 
   useIsomorphicLayoutEffect(() => {
     const context = gsap.context(() => {
-      const rows = gsap.utils.toArray<HTMLElement>('[data-step]');
+      const rows = gsap.utils.toArray<HTMLElement>("[data-step]");
 
       const timeline = gsap.timeline({
         scrollTrigger: {
           trigger: ref.current,
-          start: 'top top',
-          end: 'bottom bottom',
+          start: "top top",
+          end: "bottom bottom",
           scrub: 0.9,
         },
       });
 
       rows.forEach((row, index) => {
-        const word = row.querySelector('[data-word]');
-        const note = row.querySelector('[data-note]');
-        const bar = row.querySelector('[data-bar]');
+        const word = row.querySelector("[data-word]");
+        const note = row.querySelector("[data-note]");
+        const bar = row.querySelector("[data-bar]");
 
         timeline
           .fromTo(
             word,
-            { yPercent: 105, opacity: 0, filter: 'blur(12px)' },
+            { yPercent: 105, opacity: 0, filter: "blur(12px)" },
             {
               yPercent: 0,
               opacity: 1,
-              filter: 'blur(0px)',
+              filter: "blur(0px)",
               duration: 1,
-              ease: 'power3.out',
+              ease: "power3.out",
             },
             index * 1.15,
           )
           .fromTo(
             bar,
             { scaleX: 0 },
-            { scaleX: 1, duration: 0.9, ease: 'power2.inOut' },
+            { scaleX: 1, duration: 0.9, ease: "power2.inOut" },
             index * 1.15 + 0.15,
           )
           .fromTo(
             note,
             { opacity: 0, y: 18 },
-            { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' },
+            { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" },
             index * 1.15 + 0.3,
           );
       });
@@ -83,17 +92,14 @@ export default function CraftScene() {
       <div className="sticky top-0 flex h-[100svh] w-full items-center">
         <div className="mx-auto w-full max-w-[52rem]">
           <p className="eyebrow mb-[clamp(2rem,5vh,4rem)] text-center">
-            02 — The Bean
+            02 — The Process
           </p>
 
           <div className="flex flex-col gap-[clamp(1.5rem,4vh,3rem)]">
             {STEPS.map((step) => (
               <div key={step.word} data-step className="text-center">
                 <div className="overflow-hidden pb-[0.12em]">
-                  <p
-                    data-word
-                    className="display display-lg text-cream"
-                  >
+                  <p data-word className="display display-lg text-cream">
                     {step.word}
                   </p>
                 </div>
@@ -106,7 +112,7 @@ export default function CraftScene() {
                 <p
                   data-note
                   className="body-copy mx-auto mt-4 max-w-[42ch]"
-                  style={{ fontSize: '0.86rem' }}
+                  style={{ fontSize: "0.86rem" }}
                 >
                   {step.note}
                 </p>

@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState } from 'react';
-import { gsap } from '@/lib/gsap';
-import { useIsomorphicLayoutEffect } from '@/lib/useIsomorphicLayoutEffect';
-import { deviceTier } from '@/lib/env';
-import RevealText from '@/components/ui/RevealText';
+import { useEffect, useRef, useState } from "react";
+import { gsap } from "@/lib/gsap";
+import { useIsomorphicLayoutEffect } from "@/lib/useIsomorphicLayoutEffect";
+import { deviceTier } from "@/lib/env";
+import RevealText from "@/components/ui/RevealText";
 
 const MARKERS = [
-  { at: '00:00', label: 'Charge', value: '205°C' },
-  { at: '01:40', label: 'Turn', value: '92°C' },
-  { at: '09:12', label: 'First crack', value: '196°C' },
-  { at: '12:00', label: 'Drop', value: '211°C' },
+  { at: "00:00", label: "Start", value: "Idea" },
+  { at: "01:40", label: "Build", value: "Code" },
+  { at: "09:12", label: "Debug", value: "Fix" },
+  { at: "12:00", label: "Deploy", value: "Live" },
 ];
 
 /**
@@ -25,7 +25,7 @@ export default function RoastingScene() {
 
   useIsomorphicLayoutEffect(() => {
     const context = gsap.context(() => {
-      const path = ref.current?.querySelector<SVGPathElement>('[data-curve]');
+      const path = ref.current?.querySelector<SVGPathElement>("[data-curve]");
 
       if (path) {
         const length = path.getTotalLength();
@@ -33,11 +33,11 @@ export default function RoastingScene() {
 
         gsap.to(path, {
           strokeDashoffset: 0,
-          ease: 'none',
+          ease: "none",
           scrollTrigger: {
             trigger: ref.current,
-            start: 'top 60%',
-            end: 'bottom 85%',
+            start: "top 60%",
+            end: "bottom 85%",
             scrub: 1,
           },
         });
@@ -45,16 +45,16 @@ export default function RoastingScene() {
 
       // Markers light up in step with the curve reaching them.
       gsap.fromTo(
-        '[data-marker]',
+        "[data-marker]",
         { opacity: 0.18 },
         {
           opacity: 1,
           stagger: 0.9,
-          ease: 'none',
+          ease: "none",
           scrollTrigger: {
             trigger: ref.current,
-            start: 'top 55%',
-            end: 'bottom 85%',
+            start: "top 55%",
+            end: "bottom 85%",
             scrub: 1,
           },
         },
@@ -70,7 +70,7 @@ export default function RoastingScene() {
   // a different tree there would break hydration.
   const [shimmer, setShimmer] = useState(false);
 
-  useEffect(() => setShimmer(deviceTier() !== 'low'), []);
+  useEffect(() => setShimmer(deviceTier() !== "low"), []);
 
   return (
     <section
@@ -106,9 +106,9 @@ export default function RoastingScene() {
             aria-hidden
             className="pointer-events-none fixed inset-x-0 bottom-0 z-[16] h-[42vh]"
             style={{
-              filter: 'url(#heat-haze)',
+              filter: "url(#heat-haze)",
               background:
-                'linear-gradient(0deg, rgba(255,140,52,0.16) 0%, rgba(255,120,40,0.05) 42%, transparent 100%)',
+                "linear-gradient(0deg, rgba(255,140,52,0.16) 0%, rgba(255,120,40,0.05) 42%, transparent 100%)",
             }}
           />
         </>
@@ -117,25 +117,30 @@ export default function RoastingScene() {
       <div className="sticky top-0 flex h-[100svh] w-full items-center">
         <div className="mx-auto grid w-full max-w-[92rem] gap-[clamp(2rem,5vh,4rem)] lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <div>
-            <p className="eyebrow mb-8">03 — The Roast</p>
+            <p className="eyebrow mb-8">03 — The Build</p>
 
             <RevealText as="h2" className="display display-lg text-cream">
-              Heat
+              Pressure
             </RevealText>
-            <RevealText as="p" delay={0.1} className="display display-lg text-amber">
+            <RevealText
+              as="p"
+              delay={0.1}
+              className="display display-lg text-amber"
+            >
               Creates
             </RevealText>
-            <RevealText as="p" delay={0.2} className="display display-lg text-cream">
-              Character.
+            <RevealText
+              as="p"
+              delay={0.2}
+              className="display display-lg text-cream"
+            >
+              Progress.
             </RevealText>
 
-            <RevealText
-              variant="blur"
-              className="body-copy mt-9 max-w-[40ch]"
-            >
-              Sugars caramelise, acids fold, and the bean gives up a quarter of
-              its weight in water. Two degrees either side of the drop is a
-              different coffee entirely.
+            <RevealText variant="blur" className="body-copy mt-9 max-w-[40ch]">
+              Ideas become code, code becomes builds, and every bug is another
+              problem waiting to be solved. The pressure rises with every commit
+              until the final build is ready to ship.
             </RevealText>
           </div>
 
@@ -145,7 +150,7 @@ export default function RoastingScene() {
               viewBox="0 0 520 300"
               className="w-full"
               role="img"
-              aria-label="Roast profile: charge at 205 degrees, turning point at 1:40, first crack at 9:12, drop at 12:00."
+              aria-label="Developer workflow: idea at the start, coding during the build, debugging before completion, and deployment at the final stage."
             >
               <defs>
                 <linearGradient id="curve-stroke" x1="0" y1="0" x2="1" y2="0">
@@ -182,7 +187,10 @@ export default function RoastingScene() {
             <figcaption className="mt-8 grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4">
               {MARKERS.map((marker) => (
                 <div key={marker.at} data-marker>
-                  <p className="eyebrow mb-1.5" style={{ letterSpacing: '0.24em' }}>
+                  <p
+                    className="eyebrow mb-1.5"
+                    style={{ letterSpacing: "0.24em" }}
+                  >
                     {marker.at}
                   </p>
                   <p className="display text-[clamp(0.95rem,1.3vw,1.2rem)] tracking-[-0.02em] text-crema">

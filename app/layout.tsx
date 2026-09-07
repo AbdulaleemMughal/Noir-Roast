@@ -20,9 +20,12 @@ const sans = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'Noir Roast — From Bean to Moment',
+  title: 'Coffee.dev — From Bugs to Brews',
   description:
     'A single-origin roast, followed from the tree to the cup. Scroll through the harvest, the roast, the aroma and the pour.',
+    icons: {
+    icon: '@/public/Coffee-cup.png',
+  },
   openGraph: {
     title: 'Noir Roast — From Bean to Moment',
     description:

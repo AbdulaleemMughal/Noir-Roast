@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import { ScrollTrigger } from '@/lib/gsap';
-import { useIsomorphicLayoutEffect } from '@/lib/useIsomorphicLayoutEffect';
-import { scrollTo } from './SmoothScroll';
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ScrollTrigger } from "@/lib/gsap";
+import { useIsomorphicLayoutEffect } from "@/lib/useIsomorphicLayoutEffect";
+import { scrollTo } from "./SmoothScroll";
 
 const LINKS = [
-  { label: 'Story', target: '#origin' },
-  { label: 'Process', target: '#roast' },
-  { label: 'Coffee', target: '#product' },
-  { label: 'About', target: '#final' },
+  { label: "Story", target: "#origin" },
+  { label: "Process", target: "#roast" },
+  { label: "Coffee", target: "#product" },
+  { label: "About", target: "#final" },
 ];
 
 /**
@@ -28,7 +28,7 @@ export default function Navigation() {
 
   useIsomorphicLayoutEffect(() => {
     const trigger = ScrollTrigger.create({
-      start: 'top -80',
+      start: "top -80",
       end: 99999,
       onToggle: (self) => setCondensed(self.isActive),
     });
@@ -37,9 +37,9 @@ export default function Navigation() {
 
   // The menu owns the scroll while it is open.
   useEffect(() => {
-    document.body.style.overflow = open ? 'hidden' : '';
+    document.body.style.overflow = open ? "hidden" : "";
     return () => {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     };
   }, [open]);
 
@@ -54,29 +54,28 @@ export default function Navigation() {
       <header
         ref={ref}
         className={[
-          'fixed inset-x-0 top-0 z-[50] transition-all duration-700',
-          'flex items-center justify-between',
-          'px-[clamp(1.25rem,5vw,5.5rem)]',
+          "fixed inset-x-0 top-0 z-[50] transition-all duration-700",
+          "flex items-center justify-between",
+          "px-[clamp(1.25rem,5vw,5.5rem)]",
           condensed
-            ? 'bg-[rgba(8,4,2,0.62)] py-4 backdrop-blur-xl'
-            : 'bg-transparent py-7',
-        ].join(' ')}
+            ? "bg-[rgba(8,4,2,0.62)] py-4 backdrop-blur-xl"
+            : "bg-transparent py-7",
+        ].join(" ")}
         style={{
           borderBottom: condensed
-            ? '1px solid rgba(232,217,194,0.08)'
-            : '1px solid transparent',
+            ? "1px solid rgba(232,217,194,0.08)"
+            : "1px solid transparent",
         }}
       >
         <button
           type="button"
-          onClick={() => scrollTo('#top')}
+          onClick={() => scrollTo("#top")}
           data-cursor="top"
-          className="text-left"
+          className="text-left text-[0.95rem]"
         >
-          <span className="display mb-0.5 block text-[0.95rem] leading-none tracking-[0.2em] text-cream">
-            Noir
+          <span className="display leading-none tracking-[0.2em] text-cream">
+            Coffee. <span className="text-[#e8d9c2cc] leading-none">Dev</span>
           </span>
-          <span className="eyebrow block leading-none">Roast</span>
         </button>
 
         <nav className="hidden items-center gap-10 md:flex">
@@ -108,22 +107,22 @@ export default function Navigation() {
             type="button"
             onClick={() => setOpen((value) => !value)}
             aria-expanded={open}
-            aria-label={open ? 'Close menu' : 'Open menu'}
-            data-cursor={open ? 'close' : 'menu'}
+            aria-label={open ? "Close menu" : "Open menu"}
+            data-cursor={open ? "close" : "menu"}
             className="flex h-8 w-8 flex-col items-end justify-center gap-1.5 md:hidden"
           >
             <span
               className="h-px bg-crema transition-all duration-300"
               style={{
-                width: open ? '20px' : '22px',
-                transform: open ? 'translateY(3px) rotate(45deg)' : 'none',
+                width: open ? "20px" : "22px",
+                transform: open ? "translateY(3px) rotate(45deg)" : "none",
               }}
             />
             <span
               className="h-px bg-crema transition-all duration-300"
               style={{
-                width: open ? '20px' : '14px',
-                transform: open ? 'translateY(-3px) rotate(-45deg)' : 'none',
+                width: open ? "20px" : "14px",
+                transform: open ? "translateY(-3px) rotate(-45deg)" : "none",
               }}
             />
           </button>
@@ -135,9 +134,9 @@ export default function Navigation() {
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ clipPath: 'inset(0% 0% 100% 0%)' }}
-            animate={{ clipPath: 'inset(0% 0% 0% 0%)' }}
-            exit={{ clipPath: 'inset(0% 0% 100% 0%)' }}
+            initial={{ clipPath: "inset(0% 0% 100% 0%)" }}
+            animate={{ clipPath: "inset(0% 0% 0% 0%)" }}
+            exit={{ clipPath: "inset(0% 0% 100% 0%)" }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="fixed inset-0 z-[49] flex flex-col justify-end bg-[linear-gradient(180deg,#120804_0%,#050302_100%)] px-[clamp(1.25rem,5vw,5.5rem)] pb-24 pt-32 md:hidden"
           >

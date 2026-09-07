@@ -59,7 +59,7 @@ export default function Hero() {
           awaitHero
           className="display display-xl text-cream"
         >
-          From Beans
+          From Bugs
         </RevealText>
 
         <RevealText
@@ -69,7 +69,7 @@ export default function Hero() {
           awaitHero
           className="display display-xl text-gold"
         >
-          To Moment.
+          To Brews.
         </RevealText>
       </div>
 
@@ -80,8 +80,7 @@ export default function Hero() {
           className="body-copy max-w-[22ch] translate-y-6 text-left opacity-0"
           style={{ fontSize: '0.82rem' }}
         >
-          Eleven days from the drying bed to your grinder. Nothing waits longer
-          than it has to.
+          From late-night commits to early-morning deploys. Every build starts with a better brew.
         </p>
 
         <div

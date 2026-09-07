@@ -79,7 +79,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
           opacity: 0,
           y: -22,
           filter: 'blur(10px)',
-          duration: 0.5,
+          duration: 0.5,          
           ease: 'power2.in',
         })
         // The warm panel sweeps up and takes the black screen with it.
@@ -130,7 +130,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
         className="relative flex w-full items-end justify-between gap-8"
       >
         <div>
-          <p className="eyebrow mb-5">Noir Roast</p>
+          <p className="eyebrow mb-5">Coffee.dev</p>
           <p className="display display-md text-cream">Roasting</p>
 
           <div className="mt-8 h-px w-[min(46vw,26rem)] overflow-hidden bg-[rgba(232,217,194,0.12)]">

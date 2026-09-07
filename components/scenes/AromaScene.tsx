@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { gsap } from "@/lib/gsap";
 import { useIsomorphicLayoutEffect } from "@/lib/useIsomorphicLayoutEffect";
 
-const LINES = ["You can’t", "See aroma.", "But you can", "Feel it."];
+const NOTES = [{ word: "Focus." }, { word: "Flow." }, { word: "Clarity." }];
 
 /**
  * Scene 04 — Aroma.
@@ -136,30 +136,30 @@ export default function AromaScene() {
       <div className="sticky top-0 flex h-[100svh] w-full items-center justify-center">
         <div className="relative mx-auto w-full max-w-[68rem] text-center">
           <p className="eyebrow absolute -top-[clamp(3rem,8vh,6rem)] left-1/2 -translate-x-1/2">
-            04 — Aroma
+            04 — The Flow
           </p>
 
           {/* All four lines occupy the same space; only the scroll decides
               which one is present. */}
           <div className="relative flex h-[clamp(9rem,26vh,18rem)] items-center justify-center">
-            {LINES.map((line, index) => (
+            {NOTES.map((note, index) => (
               <p
-                key={line}
+                key={note.word}
                 data-aroma-line
                 className={[
                   "display display-lg absolute inset-x-0 opacity-0",
                   index % 2 === 0 ? "text-cream" : "text-gold",
                 ].join(" ")}
               >
-                {line}
+                {note.word}
               </p>
             ))}
           </div>
 
           <p className="body-copy mx-auto mt-[clamp(2rem,6vh,4rem)] max-w-[40ch]">
-            Jasmine first, then stone fruit, then something like brown sugar
-            once it cools. Sixteen compounds, none of which survive a second
-            reheat.
+            Coffee first, then clarity. The noise disappears, the editor opens,
+            and the problem starts to make sense. One function, one fix, one
+            commit at a time.
           </p>
         </div>
       </div>
